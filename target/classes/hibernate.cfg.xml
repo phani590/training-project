@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+		
+<hibernate-configuration>
+    <session-factory>
+    
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/demo</property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="connection.password">phani</property>
+        <property name="connection.pool_size">1</property>
+            
+               
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>     
+        
+        <!-- Disables the second level cache -->
+       <!--  <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>  -->
+        
+         <property name="hibernate.cache.use_second_level_cache">true</property>
+         <property name="hibernate.cache.query_cache">true</property>
+		<property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+		<!--<property name="net.sf.ehcache.configurationResourceName">/ehcache.xml</property>--> 
+        
+        <!-- JDBC Connection Pool -->
+        <property name="connection.pool.size">1</property>   
+        
+        <!--  Echo the SQL to stdout -->
+        <property name="show_sql">true</property>
+        
+        <!-- Drop and recreate the database schema on start-up --> 
+        <!-- Possible Vales create,update -->
+        <property name="hbm2ddl.auto">update</property>
+        
+        <property name="hibernate.generate_statistics">true</property>
+        
+        <!-- Names the annotated Entry classes --> 
+         <mapping class="com.training.hibernate.beans.Customer"/>
+         <mapping class="com.training.hibernate.beans.OfferCode"/>
+         <mapping class="com.training.hibernate.beans.Bill"/>
+        <mapping class="com.training.hibernate.beans.Item"/>                          
+        <mapping class="com.training.hibernate.beans.Vehicle"/> 
+        <mapping class="com.training.hibernate.beans.TwoWheeler"/> 
+        <mapping class="com.training.hibernate.beans.FourWheeler"/> 
+        
+    </session-factory>
+    
+    
+</hibernate-configuration>
+
