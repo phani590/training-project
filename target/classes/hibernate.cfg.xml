@@ -43,6 +43,7 @@
         <mapping class="com.training.hibernate.beans.Vehicle"/> 
         <mapping class="com.training.hibernate.beans.TwoWheeler"/> 
         <mapping class="com.training.hibernate.beans.FourWheeler"/> 
+         <mapping class="com.training.hibernate.beans.Student"/> 
         
     </session-factory>
     

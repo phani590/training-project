@@ -33,6 +33,19 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 
+@NamedQueries(  
+	    {  
+	        @NamedQuery(  
+	        name = "customer.byId",  
+	        query = "from Customer cust where cust.custId = :custId"  
+	        ) ,
+	        @NamedQuery(  
+	    	        name = "customer.byName",  
+	    	        query = "from Customer cust where cust.name = :name"  
+	    	        ) 
+	    }  
+	)  
+
 @Entity
 @Table(name="CUSTOMER_DETAILS")
 @Cacheable
@@ -180,10 +193,5 @@ public class Customer {
 	public void setBills(Collection<Bill> bills) {
 		this.bills = bills;
 	}
-	
-	
-	
-	
-
 	
 }

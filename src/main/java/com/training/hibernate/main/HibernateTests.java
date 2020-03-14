@@ -26,7 +26,7 @@ public class HibernateTests {
 		session.beginTransaction();		
 		
 		//Basic Save example of customer
-		session.save(hibernateTests.getCustomer());
+		//session.save(hibernateTests.getCustomer());
 		
 		//Object States example
 		//hibernateTests.understandingObjectStates(session);
@@ -49,9 +49,11 @@ public class HibernateTests {
 		//Inheritance example
 		//hibernateTests.inheritanceExample(session);
 		
-		//hibernateTests.loadUserData(session);
+	    //hibernateTests.loadUserData(session);
 		
 		//hibernateTests.executeHQLQuery(session);
+		
+		//hibernateTests.executeCriteriaQuery(session);
 		
 		//Named Query Example
 		//hibernateTests.executeNamedQurey(session);
@@ -61,7 +63,7 @@ public class HibernateTests {
 		
 		//hibernateTests.executeLazyLoadingExample();
 		
-	//	hibernateTests.executeFirstLevelCacheExample();
+		//hibernateTests.executeFirstLevelCacheExample();
 		
 		//hibernateTests.executeSecondLevelCacheExample();
 		
@@ -74,7 +76,7 @@ public class HibernateTests {
 		customer.setName("Nasari");
 		customer.setPhoneNo("900586486");
 		customer.setDateOfBirth(new Date(2018, 12, 23));
-		customer.setEmailId("NasariLanka@teradata.com");		
+		customer.setEmailId("NasariLanka@test.com");		
 		return customer;
     	
     }
@@ -87,30 +89,25 @@ public class HibernateTests {
 	  
   }
   
- /* public Customer embeddedObjectTest(){	
+  public Student embeddedObjectTest(){	
 		
-		Customer customer = this.getCustomer();			
-		
+	    Student st =new Student();	
+	    st.setStudentName("name  009");
 		Address address = new Address();
 		address.setStreet("Srinager colony 3rd lane");
 		address.setState("AP");
 		address.setCity("Vijayawada");
 		address.setPinCode(520011);
+		st.setStudentAddress(address);
 		
-		customer.setHomeAddress(address);
+		return st;		
 		
-		return customer;		
+	}
+ /* 
+  public Student emdeddedObjectWithAttributeOveride(){	
 		
-	}*/  
-  
-  /*public Customer emdeddedObjectWithAttributeOveride(){	
-		
-		Customer customer = new Customer();		
-		
-		customer.setName("Raviteja");
-		customer.setPhoneNo("9000586486");
-		customer.setEmailId("subramanyaraviteja@gmail.com");
-		customer.setDateOfBirth(new Date());
+		Student st =new Student();	
+	    st.setStudentName("name  009");
 		
 		Address homeAddress = new Address();
 		homeAddress.setStreet("Srinager colony 3rd lane");
@@ -124,10 +121,10 @@ public class HibernateTests {
 		officeAddress.setCity("Vijayawada");
 		officeAddress.setPinCode(520011);
 		
-		customer.setHomeAddress(homeAddress);
-		customer.setOfficeAddress(officeAddress);
+		st.setHouseAddress(homeAddress);
+		st.setStudentAddress(officeAddress);
 		
-		return customer;		
+		return st;		
 		
 	}*/
   
@@ -251,7 +248,7 @@ public class HibernateTests {
     
     public void executeHQLQuery(Session session){	    	
     	
-    	Query query = session.createQuery(" from Customer");
+    	Query query = session.createQuery(" from Customer");//select * from CUSTOMER_DETAILS
     	query.setFirstResult(4);
     	query.setMaxResults(2);  
     	List<Customer> customers = query.list(); 
@@ -260,8 +257,8 @@ public class HibernateTests {
     	}
     	
     	
-    	Query query2 = session.createQuery(" from Customer where custId = ?");  
-    	query2.setInteger(0, 5);    	
+    	Query query2 = session.createQuery(" from Customer where custId = ?");  //select * from CUSTOMER_DETAILS where custId = 19 
+    	query2.setInteger(0, 19);    	
     	customers = query2.list();  
     	
     	for(Customer customer : customers){
@@ -280,7 +277,7 @@ public class HibernateTests {
     public void executeNamedQurey(Session session){
     	
     	Query query = session.getNamedQuery("customer.byId");
-    	query.setInteger(0, 5);
+    	query.setInteger("custId", 9);
     	List<Customer> customers = query.list();
     	
     	for(Customer customer : customers){
@@ -288,7 +285,7 @@ public class HibernateTests {
     	}
     	
     	Query query2 = session.getNamedQuery("customer.byName");
-    	query2.setString(0, "User0");
+    	query2.setString("name", "User0");
     	customers = query2.list();   	
     
     	
@@ -302,9 +299,8 @@ public class HibernateTests {
     public void executeCriteriaQuery(Session session){
     	
     	Criteria criteria = session.createCriteria(Customer.class);
-    	criteria.add(Restrictions.eq("name", "User5"))
-    			.add(Restrictions.gt("custId", 2))
-    			.add(Restrictions.or(Restrictions.gt("custId", 0),Restrictions.like("name", "%User%")));    	
+    	criteria.add(Restrictions.eq("name", "User5"));
+    				
     	List<Customer> customers =  criteria.list();
     	
     	for(Customer customer : customers){
